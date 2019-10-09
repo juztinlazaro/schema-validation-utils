@@ -6,21 +6,17 @@ const onValidateDataType = (schema: IDataProps[], data: any, message?: string) =
     const { fieldName, fieldType } = item;
 
     if (!isEmpty(data[fieldName]) && typeof data[fieldName] !== fieldType) {
-      return {
-        data: message ? `${fieldName} ${message}` : `${fieldName} is invalid type.`
-      };
+      return fieldName
     }
 
-    return {
-      data: null
-    };
+    return null
   });
 
-  const getInvalidDataTypeError = validateData.filter(item => item.data);
+  const getInvalidDataTypeError = validateData.filter(item => item);
 
   return {
     isValid: isEmpty(getInvalidDataTypeError),
-    data: getInvalidDataTypeError
+    fields: getInvalidDataTypeError
   };
 };
 
